@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Ne Kadar Olurdu?</title>
+</head>
+<body class="">
+<div class="container">
+    <th:block th:if="${finalAmount} != null">
+        Şu anda
+        <th:block th:text="${finalAmount}">
+        </th:block>
+        TL olurdu.
+    </th:block>
+
+
+    <form autocomplete="off" th:action="@{/}" th:object="${currency}" method="POST" role="form"
+          class="sky-form" enctype="utf8">
+        <header>Ne Kadar Olurdu?</header>
+        <fieldset>
+            <section>
+                <label class="input">
+                    <input th:field="*{date}" type="text" placeholder="Tarih"/>
+                </label>
+            </section>
+            <section>
+                <label class="input">
+                    <input th:field="*{amount}" type="text" placeholder="Miktar"/>
+                </label>
+            </section>
+            <section>
+                <label class="input">
+                    <input th:field="*{currencyCode}" type="text" placeholder="Para Birimi"/>
+                </label>
+            </section>
+        </fieldset>
+        <footer>
+            <button id="btn-signup" type="submit" class="button">Hesapla</button>
+        </footer>
+    </form>
+</div>
+</body>
+</html>

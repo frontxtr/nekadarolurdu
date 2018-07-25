@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"/>
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Exo:400,700&amp;subset=latin-ext"/>
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" th:href="@{/resources/assets/js/niceselect/nice-select.css}" />
+    <title>Ne kadar olurdu?</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="logo">
+                <a href="javascript:;">
+                    <img th:src="@{/resources/images/logo.png}" alt="Nekadarolurdu?" class="img-fluid"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form autocomplete="off" th:action="@{/}" th:object="${currency}" method="POST" role="form"
+          class="sky-form" enctype="utf8">
+        <div class="row content">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group mb-3 col-lg-3 float-left">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text nk-yellow" style="font-size:2em;"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input th:field="*{date}" type="text" class="form-control" name="date" id="datepicker">
+                </div>
+                <div class="text middle-text float-left col-lg-2 text-center">
+                    tarihinde
+                </div>
+                <div class="input-group mb-3 col-lg-3 float-left">
+                    <input th:field="*{amount}" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text nk-yellow" style="font-size:2em;">TL</span>
+                    </div>
+                </div>
+                <div class="text middle-text float-left col-lg-2 text-center">
+                    ile
+                </div>
+                <div class="input-group mb-3 col-lg-2 float-left" style="margin-top: 15px;">
+                    <select th:field="*{currencyCode}" class="form-control currency-select">
+                        <option value="USD">$</option>
+                        <option value="EUR">€</option>
+                        <option value="GBP">£</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+                <div class="text solid-text float-none text-center">
+                    alsaydım şimdi elimde <span class="yellow-text">ne kadar TL olurdu?</span>
+                </div>
+                <div class="calculate text-center">
+                    <button id="btn-signup" type="submit" class="btn btn-custom btn-lg bg-gradient">Şimdi Hesapla!</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <th:block th:if="${finalAmount} != null">
+        <div class="row content nekadarolurdu" id="nekadarolurdu">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <h3><span class="nk-yellow" th:text="${currency.date}"></span> tarihinde eğer <span class="nk-yellow" th:text="${currency.amount} +  ' ' + TL"></span> ile <span
+                        class="nk-yellow" th:text="${currency.currencyCode}"></span> alsaydım</h3>
+                <h3>şimdi elimde <span class="nk-yellow nk-bigger" th:text="${finalAmount} +  TL"></span> olacaktı....</h3>
+            </div>
+        </div>
+    </th:block>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script th:src="@{/resources/assets/js/niceselect/jquery.nice-select.min.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').niceSelect();
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+</body>
+</html>
